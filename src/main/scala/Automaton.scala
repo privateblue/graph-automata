@@ -4,6 +4,8 @@ class Automaton(
     graph: Graph,
     actives: BitSet
 ):
+  // TODO find better syntax than applying to rule set
+  // TODO keep entire history
   def apply(rules: RuleSet): Automaton =
     Automaton(
       graph,
@@ -12,13 +14,7 @@ class Automaton(
 
   def configurationOf(v: Int): Configuration =
     require(v < graph.size, s"$v out of bounds (${graph.size - 1})")
-    val conf = graph
-      .neighboursOf(v)
-      .zipWithIndex
-      .foldLeft(if isActive(v) then 1 else 0) { case (c, (n, i)) =>
-        if isActive(n) then c + math.pow(2, i + 1).toInt else c
-      }
-    Configuration(conf)
+    Configuration((v +: graph.neighboursOf(v)).map(isActive).toVector)
 
   def isActive(v: Int): Boolean =
     require(v < graph.size, s"$v out of bounds (${graph.size - 1})")

@@ -1,18 +1,5 @@
+import scala.annotation.tailrec
 import scala.collection.immutable.BitSet
-
-val x = BigInt(2)
-x.log2
-x.bitLength
-
-val ruleSet = 0.until(x.bitLength).map(x.testBit).toVector
-
-val config = Vector(true, false, true)
-
-val b = BitSet.empty
-
-BitSet(4) + 3
-
-// ---
 
 val g = Graph.empty.add.add.add.add
   .connect(0, Seq(1, 2))

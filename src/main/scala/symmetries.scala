@@ -1,3 +1,7 @@
-def dihedral(n: Int): List[Vector[Int]] =
-  val cycle = Cycle(0.until(n): _*)
-  Permutation.ofSize(n).permutations.filter((cycle.lists ++ cycle.reverse.lists).contains)
+def dihedral(degree: Int): Set[Permutation] =
+  val cycle = Cycle(0.until(degree): _*)
+  Permutation
+    .ofSize(degree)
+    .permutations
+    .filter((cycle.lists ++ cycle.reverse.lists).contains)
+    .map(Permutation.apply)

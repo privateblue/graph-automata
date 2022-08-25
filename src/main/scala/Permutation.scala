@@ -1,4 +1,5 @@
 import scala.annotation.{tailrec, targetName}
+import scala.collection.immutable.BitSet
 
 opaque type Permutation = Vector[Int]
 
@@ -13,13 +14,25 @@ object Permutation:
 end Permutation
 
 extension (p: Permutation)
-  @targetName("combine")
   infix def *(that: Permutation): Permutation =
     require(p.size == that.size, "Permutations must be of same size")
     p.map(that(_))
 
-  def permutations: List[Permutation] =
-    p.permutations.map(i => Permutation(i.toSeq: _*)).toList
+  def apply[A](v: Vector[A]): Vector[A] =
+    require(v.size == p.size, s"Must be of size ${p.size}")
+    p.map(v.apply)
+
+  def apply(s: BitSet): BitSet =
+    s.map(p.apply)
+
+  def size: Int =
+    p.size
+
+  def leftPad: Permutation =
+    0 +: p.map(_ + 1)
+
+  def permutations: Set[Permutation] =
+    p.permutations.map(i => Permutation(i.toSeq: _*)).toSet
 
   def toCN: CN =
     @tailrec
