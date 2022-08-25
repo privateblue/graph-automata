@@ -44,7 +44,7 @@ object RuleSet:
 
 extension (rules: RuleSet)
   def isActive(c: Configuration): Boolean =
-    // TODO because the below conversion to Int, Configurations can only be Int's in practice. but then storing them
+    // TODO due to the conversion below to .intValue, Configurations can only be Ints in practice. so representing them
     //  as such would probably be more performant. it's just that the BigInt <-> BitSet conversion is so much easier
-    //  to implement
+    //  to implement...
     rules.contains(bitSetToBigInt(c).intValue)
