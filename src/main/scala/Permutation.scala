@@ -15,10 +15,12 @@ end Permutation
 
 extension (p: Permutation)
   infix def *(that: Permutation): Permutation =
+    // TODO this requirement could be loosened to "at least of same size"
     require(p.size == that.size, "Permutations must be of same size")
-    p.map(that(_))
+    p.map(that.apply)
 
   def apply[A](v: Vector[A]): Vector[A] =
+    // TODO this requirement could be loosened to "at least of same size"
     require(v.size == p.size, s"Must be of size ${p.size}")
     p.map(v.apply)
 
