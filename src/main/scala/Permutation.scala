@@ -8,10 +8,10 @@ opaque type Permutation = Vector[Int]
 object Permutation:
   def apply(is: Int*): Permutation =
     val p = is.toVector
-    require(ofSize(p.size) == p.sorted, "Not a well-formed permutation")
+    require(identity(p.size) == p.sorted, "Not a well-formed permutation")
     p
 
-  def ofSize(size: Int): Permutation =
+  def identity(size: Int): Permutation =
     0.until(size).toVector
 end Permutation
 
