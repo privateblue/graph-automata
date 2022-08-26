@@ -1,3 +1,5 @@
+package symmetries
+
 import scala.annotation.tailrec
 
 opaque type Cycle[A] = List[A]

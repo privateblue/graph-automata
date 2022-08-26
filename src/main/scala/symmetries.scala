@@ -1,3 +1,5 @@
+package symmetries
+
 def dihedral(degree: Int): Set[Permutation] =
   val cycle = Cycle(0.until(degree): _*)
   Permutation

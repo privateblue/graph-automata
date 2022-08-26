@@ -1,3 +1,7 @@
+package automata
+
+import graph._
+
 import scala.collection.immutable.BitSet
 
 class Automaton(

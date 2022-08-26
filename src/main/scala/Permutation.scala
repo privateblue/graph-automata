@@ -1,3 +1,5 @@
+package symmetries
+
 import scala.annotation.{tailrec, targetName}
 import scala.collection.immutable.BitSet
 

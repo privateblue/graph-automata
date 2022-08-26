@@ -1,3 +1,5 @@
+package graph
+
 opaque type Graph = IndexedSeq[Seq[Int]]
 
 object Graph:

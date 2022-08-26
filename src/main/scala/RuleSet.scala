@@ -1,3 +1,7 @@
+package automata
+
+import symmetries._
+
 import scala.collection.immutable.BitSet
 
 opaque type Configuration = BitSet

@@ -1,3 +1,5 @@
+package graph
+
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest._
 import matchers.should.Matchers._
