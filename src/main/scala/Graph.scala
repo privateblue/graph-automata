@@ -6,7 +6,7 @@ object Graph:
   def empty: Graph =
     IndexedSeq.empty[Seq[Int]]
 
-  def total(size: Int): Graph =
+  def complete(size: Int): Graph =
     val range = 0.until(size)
     range.map(n => range.filterNot(_ == n))
 end Graph
@@ -25,8 +25,8 @@ extension (graph: Graph)
     require(v < graph.size, s"$v out of bounds (${graph.size - 1})")
     graph(v)
 
-  def add: Graph =
-    graph :+ Seq.empty
+  def add(n: Int): Graph =
+    graph ++ IndexedSeq.fill(n)(Seq.empty[Int])
 
   def remove(v: Int): Graph =
     require(v < graph.size, s"$v out of bounds (${graph.size - 1})")
@@ -43,3 +43,15 @@ extension (graph: Graph)
     (to :+ from).foreach { i => require(i < graph.size, s"$i out of bounds (${graph.size - 1})") }
     val updated = graph.updated(from, graph(from).filterNot(to.contains))
     to.foldLeft(updated) { case (g, i) => g.updated(i, g(i).filterNot(_ == from)) }
+
+  infix def +(that: Graph): Graph =
+    that.foldLeft(graph)((g, ns) => g :+ ns.map(_ + graph.size))
+
+  def glue(that: Graph, at1: (Int, Int), at2: (Int, Int)): Graph =
+    require(graph.edges.contains(at1), s"$at1 must be an edge of the left graph")
+    require(that.edges.contains(at2), s"$at2 must be an edge of the right graph")
+    val thisRemoved = graph.disconnect(at1._1, Seq(at1._2))
+    val thatRemoved = that.disconnect(at2._1, Seq(at2._2))
+    (thisRemoved + thatRemoved)
+      .connect(at1._1, Seq(at2._1 + graph.size))
+      .connect(at1._2, Seq(at2._2 + graph.size))
