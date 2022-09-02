@@ -1,6 +1,6 @@
 package automata
 
-import graph._
+import graph.*
 
 import scala.collection.immutable.BitSet
 
@@ -30,6 +30,7 @@ class Automaton(
 
   override def toString: String =
     graph.vertices.map(v => if isActive(v) then "1" else "0").mkString
+end Automaton
 
 object Automaton:
   def empty(graph: Graph, rules: RuleSet): Automaton =
@@ -37,3 +38,4 @@ object Automaton:
 
   def init(graph: Graph, rules: RuleSet, initialState: BitSet): Automaton =
     Automaton(graph, rules, initialState, Vector.empty)
+end Automaton

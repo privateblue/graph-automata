@@ -31,12 +31,14 @@ object RuleSet:
 
   def allOfSize(n: Int): Set[RuleSet] =
     BitSet(0.until(n): _*).subsets().toSet
+
   def allWithSymmetries(size: Int, symmetries: Set[Permutation]): Set[RuleSet] =
     val cs = math.log(size) / math.log(2)
     require(cs.isWhole, "Size must be a power of 2")
     val configSize = cs.toInt
     require(symmetries.forall(_.size == configSize), s"All symmetries must be of size $configSize")
     allOfSize(size).filter(_.isSymmetrical(symmetries))
+end RuleSet
 
 extension (rules: RuleSet)
   def isActive(c: Configuration): Boolean =
